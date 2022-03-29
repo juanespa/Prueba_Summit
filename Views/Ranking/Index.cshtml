@@ -1,0 +1,83 @@
+﻿@model Prueba_1.Models.resp
+@{
+    ViewBag.Title = "Index";
+    List<Prueba_1.Models.Rank> lstRank = ViewBag.Lst;
+    
+    //List<string> lstRank1 = ViewBag.Lst_ti;
+
+
+}
+
+
+
+@using (Html.BeginForm("Filter", "Ranking", FormMethod.Post, new { id = "frm-login" }))
+{
+    <div style="margin: auto; width: 300px">
+
+
+        <hr />
+        <div class="form-group">
+            <label> Lista de opciones </label> <br />
+            @*@Html.DropDownList("algo", lstRank1)*@
+            @*@Html.Label("Lista de opciones", new { @class = "form control" })*@
+            @Html.DropDownList("Lst_ti", (List<SelectListItem>)ViewBag.Lst_ti, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label> Palabra a buscar: </label> <br />
+            @Html.TextBox("search", null, new { @class = "form-control" })
+        </div>
+
+
+        <div class="form-group ">
+            @Html.LabelFor(x => x.cantidad, new { @class = "form control" })
+            @Html.TextBoxFor(x => x.cantidad, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group ">
+            @Html.LabelFor(x => x.orden, new { @class = "form control" })
+            @Html.CheckBoxFor(x => x.orden, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="text-center" style="margin-top: 35px;">
+        <button data-ajax="true" type="submit" class="btn btn-primary">
+            Buscar
+        </button>
+    </div>
+
+}
+
+@*adasdasd*@
+
+<hr>
+
+@if (lstRank.Count() > 0)
+{
+    <div class="container">
+        <h2>Tabla de datos</h2>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Item</th>
+                    <th>Repo Name</th>
+                    <th>Stars</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lstRank)
+                {
+                    <tr>
+                        <td>@item.rank</td>
+                        <td>@item.item</td>
+                        <td>@item.repo_name</td>
+                        <td>@item.stars</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+
