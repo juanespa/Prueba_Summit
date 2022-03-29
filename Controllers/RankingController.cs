@@ -81,6 +81,7 @@ namespace Prueba_1.Controllers
             ra.Value = int.Parse(Request["Lst_ti"]);
             var lst_filter = rK.SplitCSV();
 
+            // switch con las opciones que tiene la lista 
 
             switch (ra.Value)
             {
@@ -96,13 +97,20 @@ namespace Prueba_1.Controllers
                 case 3:
                     lstRes = lst_filter.FindAll(x => x.stars.ToLower() == ra.search.ToLower());
                     break;
+
+                default:
+                    lstRes = lstFinal;  
+                    break;
             }
 
+
+            // en caso de que el resultado sea menor a la cantidad solicitada, se hace el filtro por la cantidad de registros que eexistan.
             if (lstRes.Count < ra.cantidad)
             {
                 ra.cantidad = lstRes.Count;
             }
 
+            // se hace el filtro si se coloco una cantidad, sino se envian todos los resultados encontrados
             if (ra.cantidad > 0)
             {
                 for (int i = 0; i < ra.cantidad; i++)
@@ -126,6 +134,7 @@ namespace Prueba_1.Controllers
             return View();
         }
 
+        // lista de opciones 
         public List<SelectListItem> Lista()
         {
 
